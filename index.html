@@ -1,6 +1,236 @@
-<video width="1080" controls>
-    <source src="1月8日.mp4" type="video/mp4">
-</video>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solisepia Portfolio</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --surface: #ffffff;
+      --text: #12131a;
+      --muted: #5b6171;
+      --primary: #0a6dff;
+      --primary-strong: #004ec2;
+      --line: #d9dfeb;
+      --shadow: 0 18px 45px rgba(15, 32, 72, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 85% 8%, #dbe9ff 0%, transparent 42%),
+        radial-gradient(circle at 10% 25%, #fff0e0 0%, transparent 30%),
+        var(--bg);
+    }
+
+    .container {
+      width: min(1080px, 92vw);
+      margin: 0 auto;
+      padding: 24px 0 56px;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0 24px;
+      gap: 12px;
+    }
+
+    .brand {
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: 0.2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .pill-link {
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid var(--line);
+      background: var(--surface);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+    }
+
+    .hero {
+      background: linear-gradient(140deg, #ffffff, #edf4ff);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 26px;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(1.65rem, 2.2vw, 2.2rem);
+    }
+
+    .hero p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      line-height: 1.5;
+      max-width: 760px;
+    }
+
+    .primary-btn {
+      display: inline-block;
+      text-decoration: none;
+      background: linear-gradient(120deg, var(--primary), var(--primary-strong));
+      color: #fff;
+      border-radius: 10px;
+      padding: 11px 16px;
+      font-weight: 600;
+    }
+
+    h2 {
+      margin: 8px 0 12px;
+      font-size: 1.35rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+    }
+
+    .card p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 0.95rem;
+    }
+
+    .card a {
+      color: var(--primary-strong);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+      margin-top: 6px;
+    }
+
+    .video-block {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    video {
+      width: 100%;
+      border-radius: 10px;
+      background: #000;
+      display: block;
+    }
+
+    .video-label {
+      margin: 8px 0 0;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    .section {
+      margin-top: 24px;
+    }
+
+    @media (max-width: 680px) {
+      .hero {
+        padding: 20px;
+      }
+
+      .top-nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
 <body>
-    <a href="unreal_render.drawio.html"></a>
+  <main class="container">
+    <header class="top-nav">
+      <div class="brand">Solisepia Works</div>
+      <nav class="nav-links">
+        <a class="pill-link" href="#projects">Samples</a>
+        <a class="pill-link" href="#videos">Videos</a>
+        <a class="pill-link" href="Inventarium/index.html">Inventarium</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h1>Personal Portfolio</h1>
+      <p>
+        This page collects project samples and demo videos in one place, with a direct entry to the
+        Inventarium web page.
+      </p>
+      <a class="primary-btn" href="Inventarium/index.html">Open Inventarium</a>
+    </section>
+
+    <section id="projects" class="section">
+      <h2>Sample Projects</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Unreal Render Diagram</h3>
+          <p>Rendering flow analysis and references exported from draw.io.</p>
+          <a href="unreal_render.drawio.html" target="_blank" rel="noopener noreferrer">View sample</a>
+        </article>
+        <article class="card">
+          <h3>Inventarium Web</h3>
+          <p>Enter the dedicated Inventarium page from this portfolio hub.</p>
+          <a href="Inventarium/index.html" target="_blank" rel="noopener noreferrer">Go to Inventarium</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="videos" class="section">
+      <h2>Videos</h2>
+      <div class="video-grid">
+        <div class="video-block">
+          <video controls preload="metadata">
+            <source src="1%E6%9C%888%E6%97%A5.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+          </video>
+          <p class="video-label">January 8 demo</p>
+        </div>
+        <div class="video-block">
+          <video controls preload="metadata">
+            <source src="duyesishow.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+          </video>
+          <p class="video-label">Duyesi showcase</p>
+        </div>
+      </div>
+    </section>
+  </main>
 </body>
+</html>
