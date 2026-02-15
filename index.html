@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Solisepia Portfolio</title>
+  <title>Solisepia 作品集</title>
   <style>
     :root {
       --bg: #f6f7fb;
@@ -50,6 +50,14 @@
       letter-spacing: 0.2px;
     }
 
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
     .nav-links {
       display: flex;
       gap: 12px;
@@ -64,6 +72,29 @@
       padding: 8px 12px;
       border-radius: 999px;
       font-size: 0.92rem;
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      overflow: hidden;
+      background: var(--surface);
+    }
+
+    .lang-btn {
+      border: 0;
+      background: transparent;
+      padding: 7px 10px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    .lang-btn.is-active {
+      background: #e8f0ff;
+      color: var(--primary-strong);
+      font-weight: 700;
     }
 
     .hero {
@@ -173,64 +204,146 @@
         align-items: flex-start;
         flex-direction: column;
       }
+
+      .top-actions {
+        justify-content: flex-start;
+      }
     }
   </style>
 </head>
 <body>
   <main class="container">
     <header class="top-nav">
-      <div class="brand">Solisepia Works</div>
-      <nav class="nav-links">
-        <a class="pill-link" href="#projects">Samples</a>
-        <a class="pill-link" href="#videos">Videos</a>
-        <a class="pill-link" href="Inventarium/index.html">Inventarium</a>
-      </nav>
+      <div class="brand" data-i18n="brand">Solisepia 作品集</div>
+      <div class="top-actions">
+        <nav class="nav-links">
+          <a class="pill-link" href="#projects" data-i18n="navSamples">样例</a>
+          <a class="pill-link" href="#videos" data-i18n="navVideos">视频</a>
+          <a class="pill-link" href="Inventarium/index.html" data-i18n="navInventarium">Inventarium</a>
+        </nav>
+        <div class="lang-switch" role="group" aria-label="Language switch">
+          <button class="lang-btn" type="button" data-lang="zh">中文</button>
+          <button class="lang-btn" type="button" data-lang="en">EN</button>
+        </div>
+      </div>
     </header>
 
     <section class="hero">
-      <h1>Personal Portfolio</h1>
-      <p>
-        This page collects project samples and demo videos in one place, with a direct entry to the
-        Inventarium web page.
-      </p>
-      <a class="primary-btn" href="Inventarium/index.html">Open Inventarium</a>
+      <h1 data-i18n="heroTitle">个人作品页</h1>
+      <p data-i18n="heroDesc">这个页面汇总了项目样例和演示视频，并提供 Inventarium 的直接入口。</p>
+      <a class="primary-btn" href="Inventarium/index.html" data-i18n="heroBtn">打开 Inventarium</a>
     </section>
 
     <section id="projects" class="section">
-      <h2>Sample Projects</h2>
+      <h2 data-i18n="projectsTitle">样例项目</h2>
       <div class="grid">
         <article class="card">
-          <h3>Unreal Render Diagram</h3>
-          <p>Rendering flow analysis and references exported from draw.io.</p>
-          <a href="unreal_render.drawio.html" target="_blank" rel="noopener noreferrer">View sample</a>
+          <h3 data-i18n="unrealTitle">Unreal 渲染图示</h3>
+          <p data-i18n="unrealDesc">来自 draw.io 导出的渲染流程分析和参考内容。</p>
+          <a href="unreal_render.drawio.html" target="_blank" rel="noopener noreferrer" data-i18n="viewSample">查看样例</a>
         </article>
         <article class="card">
-          <h3>Inventarium Web</h3>
-          <p>Enter the dedicated Inventarium page from this portfolio hub.</p>
-          <a href="Inventarium/index.html" target="_blank" rel="noopener noreferrer">Go to Inventarium</a>
+          <h3 data-i18n="inventariumTitle">Inventarium 网页</h3>
+          <p data-i18n="inventariumDesc">从这个作品首页进入 Inventarium 独立页面。</p>
+          <a href="Inventarium/index.html" target="_blank" rel="noopener noreferrer" data-i18n="goInventarium">进入 Inventarium</a>
         </article>
       </div>
     </section>
 
     <section id="videos" class="section">
-      <h2>Videos</h2>
+      <h2 data-i18n="videosTitle">视频</h2>
       <div class="video-grid">
         <div class="video-block">
           <video controls preload="metadata">
             <source src="1%E6%9C%888%E6%97%A5.mp4" type="video/mp4">
             Your browser does not support HTML5 video.
           </video>
-          <p class="video-label">January 8 demo</p>
+          <p class="video-label" data-i18n="videoOne">FPS demo演示</p>
         </div>
         <div class="video-block">
           <video controls preload="metadata">
             <source src="duyesishow.mp4" type="video/mp4">
             Your browser does not support HTML5 video.
           </video>
-          <p class="video-label">Duyesi showcase</p>
+          <p class="video-label" data-i18n="videoTwo">卡牌对战 demo演示</p>
         </div>
       </div>
     </section>
   </main>
+
+  <script>
+    const i18n = {
+      zh: {
+        pageTitle: "Solisepia 作品集",
+        brand: "Solisepia 作品集",
+        navSamples: "样例",
+        navVideos: "视频",
+        navInventarium: "Inventarium",
+        heroTitle: "个人作品页",
+        heroDesc: "这个页面汇总了项目样例和演示视频，并提供 Inventarium 的直接入口。",
+        heroBtn: "打开 Inventarium",
+        projectsTitle: "样例项目",
+        unrealTitle: "Unreal 渲染图示",
+        unrealDesc: "来自 draw.io 导出的渲染流程分析和参考内容。",
+        viewSample: "查看样例",
+        inventariumTitle: "Inventarium 网页",
+        inventariumDesc: "从这个作品首页进入 Inventarium 独立页面。",
+        goInventarium: "进入 Inventarium",
+        videosTitle: "视频",
+        videoOne: "FPS demo演示",
+        videoTwo: "卡牌对战 demo演示"
+      },
+      en: {
+        pageTitle: "Solisepia Portfolio",
+        brand: "Solisepia Works",
+        navSamples: "Samples",
+        navVideos: "Videos",
+        navInventarium: "Inventarium",
+        heroTitle: "Personal Portfolio",
+        heroDesc: "This page gathers project samples and demo videos, with a direct entry to Inventarium.",
+        heroBtn: "Open Inventarium",
+        projectsTitle: "Sample Projects",
+        unrealTitle: "Unreal Render Diagram",
+        unrealDesc: "Rendering flow analysis and references exported from draw.io.",
+        viewSample: "View sample",
+        inventariumTitle: "Inventarium Web",
+        inventariumDesc: "Jump to the dedicated Inventarium page from this portfolio hub.",
+        goInventarium: "Go to Inventarium",
+        videosTitle: "Videos",
+        videoOne: "FPS demo showcase",
+        videoTwo: "Card battle demo showcase"
+      }
+    };
+
+    const storageKey = "site_lang";
+    const textNodes = document.querySelectorAll("[data-i18n]");
+    const langButtons = document.querySelectorAll(".lang-btn");
+
+    function applyLanguage(lang) {
+      const dict = i18n[lang] || i18n.zh;
+      document.documentElement.lang = lang === "en" ? "en" : "zh-CN";
+      document.title = dict.pageTitle;
+
+      textNodes.forEach((node) => {
+        const key = node.dataset.i18n;
+        if (dict[key]) {
+          node.textContent = dict[key];
+        }
+      });
+
+      langButtons.forEach((button) => {
+        button.classList.toggle("is-active", button.dataset.lang === lang);
+      });
+
+      localStorage.setItem(storageKey, lang);
+    }
+
+    langButtons.forEach((button) => {
+      button.addEventListener("click", () => applyLanguage(button.dataset.lang));
+    });
+
+    const savedLang = localStorage.getItem(storageKey);
+    applyLanguage(savedLang && i18n[savedLang] ? savedLang : "zh");
+  </script>
 </body>
 </html>

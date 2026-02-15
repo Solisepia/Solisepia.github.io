@@ -1,5 +1,106 @@
-﻿const revealTargets = document.querySelectorAll('.reveal');
+﻿const storageKey = 'site_lang';
+let currentLanguage = 'zh';
 
+const i18n = {
+  zh: {
+    pageTitle: 'Inventarium 珍藏录 | 本地离线物品管理',
+    metaDescription:
+      'Inventarium 珍藏录：专注本地存储、支持图片与进度追踪的物品管理工具。下载 Android 安装包，开箱即用。',
+    brand: 'Inventarium 珍藏录',
+    headerCta: '立即下载',
+    heroKicker: '个人收藏管理',
+    heroTitleLine1: '把重要物品管理，',
+    heroTitleLine2: '做成一件轻松的事。',
+    heroDesc:
+      '本地离线存储、图片上传、标签筛选、进度趋势、自动备份。不依赖云端账号，数据完全由你掌控。',
+    heroDownload: '前往下载 APK',
+    heroFeatures: '查看功能',
+    statRuntimeLabel: '运行方式',
+    statRuntimeValue: '本地离线',
+    statBackupLabel: '数据备份',
+    statBackupValue: 'JSON 一键导入导出',
+    statDeviceLabel: '适配设备',
+    statDeviceValue: '手机 + 桌面浏览器',
+    featuresTitle: '核心功能',
+    feature1Title: '完全本地存储',
+    feature1Desc: '新增、编辑、删除操作自动持久化保存，关闭应用后数据仍保留。',
+    feature2Title: '图片与标签管理',
+    feature2Desc: '支持上传图片封面、标签体系与类型管理，筛选和搜索更高效。',
+    feature3Title: '进度趋势跟踪',
+    feature3Desc: '记录每次进度变更，查看历史轨迹，清晰掌握物品状态变化。',
+    feature4Title: '备份与迁移',
+    feature4Desc: '支持备份文件导出，换设备也可通过导入快速恢复数据。',
+    galleryKicker: '界面截图',
+    galleryTitle: '界面预览',
+    galleryDesc: '点击左右按钮，浏览应用界面。',
+    downloadKicker: '下载',
+    downloadTitle: '下载 Android 安装包',
+    downloadDesc:
+      '当前目录已提供 APK 文件，可直接下载安装。如遇系统拦截，请在系统设置中允许安装未知来源应用。',
+    downloadApk: '下载 APK',
+    copyLink: '复制下载链接',
+    footerText: 'Inventarium 珍藏录 · 本地优先的数据管理体验',
+    copySuccess: '下载链接已复制',
+    copyFail: '复制失败，请手动复制当前页面地址',
+    prevPage: '上一页',
+    nextPage: '下一页',
+    pageNavigation: '页面导航',
+    dotAria: '查看第 {n} 页',
+    screenshotAltPrefix: 'Inventarium 应用截图'
+  },
+  en: {
+    pageTitle: 'Inventarium | Local Offline Collection Manager',
+    metaDescription:
+      'Inventarium: a local-first collection manager with image support and progress tracking. Download the Android APK and use it instantly.',
+    brand: 'Inventarium',
+    headerCta: 'Download',
+    heroKicker: 'Personal Collection Manager',
+    heroTitleLine1: 'Manage important items,',
+    heroTitleLine2: 'without the friction.',
+    heroDesc:
+      'Local offline storage, image upload, tag filtering, progress trends, and backup. No cloud account required, your data stays in your control.',
+    heroDownload: 'Download APK',
+    heroFeatures: 'View Features',
+    statRuntimeLabel: 'Runtime',
+    statRuntimeValue: 'Local Offline',
+    statBackupLabel: 'Backup',
+    statBackupValue: 'One-click JSON import/export',
+    statDeviceLabel: 'Devices',
+    statDeviceValue: 'Mobile + Desktop Browser',
+    featuresTitle: 'Core Features',
+    feature1Title: 'Fully Local Storage',
+    feature1Desc: 'Create, edit, and delete changes are persisted automatically and stay after closing the app.',
+    feature2Title: 'Images and Tags',
+    feature2Desc: 'Upload cover images, manage tags and item types, and filter or search efficiently.',
+    feature3Title: 'Progress Timeline',
+    feature3Desc: 'Track each progress update with history and understand item status changes clearly.',
+    feature4Title: 'Backup and Migration',
+    feature4Desc: 'Export backup files and restore data quickly on a new device by importing them.',
+    galleryKicker: 'Screenshots',
+    galleryTitle: 'Interface Preview',
+    galleryDesc: 'Use the left and right buttons to browse the app screens.',
+    downloadKicker: 'Download',
+    downloadTitle: 'Download Android APK',
+    downloadDesc:
+      'The APK is available in this folder for direct installation. If the system blocks it, allow unknown-source app installs in your device settings.',
+    downloadApk: 'Download APK',
+    copyLink: 'Copy Download Link',
+    footerText: 'Inventarium · Local-first data management experience',
+    copySuccess: 'Download link copied',
+    copyFail: 'Copy failed, please copy the current page URL manually',
+    prevPage: 'Previous page',
+    nextPage: 'Next page',
+    pageNavigation: 'Page navigation',
+    dotAria: 'View page {n}',
+    screenshotAltPrefix: 'Inventarium screenshot'
+  }
+};
+
+function t(key) {
+  return (i18n[currentLanguage] && i18n[currentLanguage][key]) || i18n.zh[key] || key;
+}
+
+const revealTargets = document.querySelectorAll('.reveal');
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
@@ -11,23 +112,13 @@ const observer = new IntersectionObserver(
   },
   { threshold: 0.2 }
 );
-
 revealTargets.forEach((node) => observer.observe(node));
 
+const textNodes = document.querySelectorAll('[data-i18n]');
+const languageButtons = document.querySelectorAll('.lang-btn');
+const metaDescription = document.getElementById('meta-description');
 const copyButton = document.getElementById('copy-link');
 const copyStatus = document.getElementById('copy-status');
-
-if (copyButton && copyStatus) {
-  copyButton.addEventListener('click', async () => {
-    const target = new URL('./app-release.apk', window.location.href).href;
-    try {
-      await navigator.clipboard.writeText(target);
-      copyStatus.textContent = '下载链接已复制';
-    } catch {
-      copyStatus.textContent = '复制失败，请手动复制当前页面地址';
-    }
-  });
-}
 
 const galleryImages = Array.from({ length: 9 }, (_, index) => `./gallery/sample${index}.jpg`);
 const pageFrame = document.getElementById('page-frame');
@@ -39,13 +130,66 @@ const pageIndex = document.getElementById('page-index');
 let currentPage = 0;
 let touchStartX = 0;
 
+function setLanguage(lang) {
+  currentLanguage = i18n[lang] ? lang : 'zh';
+  document.documentElement.lang = currentLanguage === 'en' ? 'en' : 'zh-CN';
+  document.title = t('pageTitle');
+
+  if (metaDescription) {
+    metaDescription.setAttribute('content', t('metaDescription'));
+  }
+
+  textNodes.forEach((node) => {
+    const key = node.dataset.i18n;
+    if (key) {
+      node.textContent = t(key);
+    }
+  });
+
+  languageButtons.forEach((button) => {
+    button.classList.toggle('is-active', button.dataset.lang === currentLanguage);
+  });
+
+  if (pagePrev) {
+    pagePrev.setAttribute('aria-label', t('prevPage'));
+  }
+  if (pageNext) {
+    pageNext.setAttribute('aria-label', t('nextPage'));
+  }
+  if (pageDots) {
+    pageDots.setAttribute('aria-label', t('pageNavigation'));
+  }
+  if (pageImage) {
+    pageImage.alt = `${t('screenshotAltPrefix')} ${currentPage + 1}`;
+  }
+
+  localStorage.setItem(storageKey, currentLanguage);
+  renderDots();
+}
+
+languageButtons.forEach((button) => {
+  button.addEventListener('click', () => setLanguage(button.dataset.lang || 'zh'));
+});
+
+if (copyButton && copyStatus) {
+  copyButton.addEventListener('click', async () => {
+    const target = new URL('./app-release.apk', window.location.href).href;
+    try {
+      await navigator.clipboard.writeText(target);
+      copyStatus.textContent = t('copySuccess');
+    } catch {
+      copyStatus.textContent = t('copyFail');
+    }
+  });
+}
+
 function renderDots() {
   if (!pageDots) return;
   pageDots.innerHTML = '';
   galleryImages.forEach((_, i) => {
     const dot = document.createElement('button');
     dot.type = 'button';
-    dot.setAttribute('aria-label', `查看第 ${i + 1} 页`);
+    dot.setAttribute('aria-label', t('dotAria').replace('{n}', String(i + 1)));
     if (i === currentPage) {
       dot.classList.add('is-active');
     }
@@ -64,7 +208,7 @@ function setPage(index, direction = 'next') {
   void pageFrame.offsetWidth;
   pageFrame.classList.add(direction === 'prev' ? 'is-flipping-prev' : 'is-flipping-next');
   pageImage.src = galleryImages[next];
-  pageImage.alt = `Inventarium 应用截图 ${next + 1}`;
+  pageImage.alt = `${t('screenshotAltPrefix')} ${next + 1}`;
   currentPage = next;
   if (pageIndex) {
     pageIndex.textContent = `${currentPage + 1} / ${galleryImages.length}`;
@@ -97,5 +241,10 @@ if (pageImage && pagePrev && pageNext && pageFrame) {
       setPage(currentPage - 1, 'prev');
     }
   });
+}
+
+const savedLanguage = localStorage.getItem(storageKey);
+setLanguage(savedLanguage && i18n[savedLanguage] ? savedLanguage : 'zh');
+if (pageImage && pagePrev && pageNext && pageFrame) {
   setPage(0, 'next');
 }

@@ -43,11 +43,40 @@ body {
   justify-content: space-between;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
 .brand {
   font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
   font-weight: 700;
   letter-spacing: 0.02em;
   font-size: clamp(1rem, 2.5vw, 1.25rem);
+}
+
+.lang-switch {
+  display: inline-flex;
+  border: 1px solid #c8d7f7;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #f3f7ff;
+}
+
+.lang-btn {
+  border: 0;
+  background: transparent;
+  color: #4c5c7d;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.35rem 0.55rem;
+  cursor: pointer;
+}
+
+.lang-btn.is-active {
+  background: #dce8ff;
+  color: #0c4ec7;
 }
 
 main {
@@ -378,6 +407,15 @@ h2 {
 
   .site-header {
     padding: 0.72rem 0.7rem;
+  }
+
+  .header-actions {
+    gap: 0.4rem;
+  }
+
+  .lang-btn {
+    padding: 0.32rem 0.48rem;
+    font-size: 0.78rem;
   }
 
   .hero-copy,

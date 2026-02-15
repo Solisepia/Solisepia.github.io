@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inventarium 珍藏录 | 本地离线物品管理</title>
     <meta
+      id="meta-description"
       name="description"
       content="Inventarium 珍藏录：专注本地存储、支持图片与进度追踪的物品管理工具。下载 Android 安装包，开箱即用。"
     />
@@ -18,60 +19,66 @@
   </head>
   <body>
     <header class="site-header">
-      <div class="brand">Inventarium 珍藏录</div>
-      <a class="header-cta" href="./app-release.apk" download>立即下载</a>
+      <div class="brand" data-i18n="brand">Inventarium 珍藏录</div>
+      <div class="header-actions">
+        <div class="lang-switch" role="group" aria-label="Language switch">
+          <button class="lang-btn" type="button" data-lang="zh">中文</button>
+          <button class="lang-btn" type="button" data-lang="en">EN</button>
+        </div>
+        <a class="header-cta" href="./app-release.apk" download data-i18n="headerCta">立即下载</a>
+      </div>
     </header>
 
     <main>
       <section class="hero">
         <div class="hero-copy reveal">
-          <p class="kicker">Personal Collection Manager</p>
-          <h1>把重要物品管理，
-            <span>做成一件轻松的事。</span>
+          <p class="kicker" data-i18n="heroKicker">个人收藏管理</p>
+          <h1>
+            <span data-i18n="heroTitleLine1">把重要物品管理，</span>
+            <span data-i18n="heroTitleLine2">做成一件轻松的事。</span>
           </h1>
-          <p class="hero-desc">
-            本地离线存储、图片上传、标签筛选、进度趋势、自动备份。
-            不依赖云端账号，数据完全由你掌控。
+          <p class="hero-desc" data-i18n="heroDesc">
+            本地离线存储、图片上传、标签筛选、进度趋势、自动备份。不依赖云端账号，数据完全由你掌控。
           </p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#download">前往下载APK</a>
-            <a class="btn btn-ghost" href="#features">查看功能</a>
+            <a class="btn btn-primary" href="#download" data-i18n="heroDownload">前往下载 APK</a>
+            <a class="btn btn-ghost" href="#features" data-i18n="heroFeatures">查看功能</a>
           </div>
         </div>
         <div class="hero-panel reveal">
           <div class="stat-card">
-            <span class="stat-label">运行方式</span>
-            <strong>本地离线</strong>
+            <span class="stat-label" data-i18n="statRuntimeLabel">运行方式</span>
+            <strong data-i18n="statRuntimeValue">本地离线</strong>
           </div>
           <div class="stat-card">
-            <span class="stat-label">数据备份</span>
-            <strong>JSON 一键导入导出</strong>
+            <span class="stat-label" data-i18n="statBackupLabel">数据备份</span>
+            <strong data-i18n="statBackupValue">JSON 一键导入导出</strong>
           </div>
           <div class="stat-card">
-            <span class="stat-label">适配设备</span>
-            <strong>手机 + 桌面浏览器</strong>
+            <span class="stat-label" data-i18n="statDeviceLabel">适配设备</span>
+            <strong data-i18n="statDeviceValue">手机 + 桌面浏览器</strong>
           </div>
         </div>
       </section>
 
       <section id="features" class="features">
-        <h2 class="reveal">核心功能</h2>
+        <h2 class="reveal" data-i18n="featuresTitle">核心功能</h2>
         <div class="feature-grid">
           <article class="feature-card reveal">
-            <h3>完全本地存储</h3>
-            <p>新增、编辑、删除操作自动持久化保存，关闭应用后数据仍保留。</p>
+            <h3 data-i18n="feature1Title">完全本地存储</h3>
+            <p data-i18n="feature1Desc">新增、编辑、删除操作自动持久化保存，关闭应用后数据仍保留。</p>
           </article>
           <article class="feature-card reveal">
-            <h3>图片与标签管理</h3>
-            <p>支持上传图片封面、标签体系与类型管理，筛选和搜索更高效。</p>
+            <h3 data-i18n="feature2Title">图片与标签管理</h3>
+            <p data-i18n="feature2Desc">支持上传图片封面、标签体系与类型管理，筛选和搜索更高效。</p>
           </article>
           <article class="feature-card reveal">
-            <h3>进度趋势跟踪</h3>
-            <p>记录每次进度变更，查看历史轨迹，清晰掌握物品状态变化。</p>
+            <h3 data-i18n="feature3Title">进度趋势跟踪</h3>
+            <p data-i18n="feature3Desc">记录每次进度变更，查看历史轨迹，清晰掌握物品状态变化。</p>
           </article>
           <article class="feature-card reveal">
-            <h3>备份与迁移</h3>
-            <p>支持备份文件导出，换设备也可通过导入快速恢复数据。</p>
+            <h3 data-i18n="feature4Title">备份与迁移</h3>
+            <p data-i18n="feature4Desc">支持备份文件导出，换设备也可通过导入快速恢复数据。</p>
           </article>
         </div>
       </section>
@@ -79,16 +86,16 @@
       <section id="preview" class="gallery-section">
         <div class="gallery-card reveal">
           <div class="gallery-head">
-            <p class="kicker">Screenshots</p>
-            <h2>界面预览</h2>
-            <p>点击左右按钮，浏览应用界面。</p>
+            <p class="kicker" data-i18n="galleryKicker">界面截图</p>
+            <h2 data-i18n="galleryTitle">界面预览</h2>
+            <p data-i18n="galleryDesc">点击左右按钮，浏览应用界面。</p>
           </div>
           <div class="gallery-viewer">
-            <button class="page-btn" type="button" id="page-prev" aria-label="上一页">‹</button>
+            <button class="page-btn" type="button" id="page-prev" aria-label="上一页">&#8249;</button>
             <figure class="page-frame" id="page-frame">
               <img id="page-image" src="./gallery/sample0.jpg" alt="Inventarium 应用截图 1" />
             </figure>
-            <button class="page-btn" type="button" id="page-next" aria-label="下一页">›</button>
+            <button class="page-btn" type="button" id="page-next" aria-label="下一页">&#8250;</button>
           </div>
           <div class="gallery-foot">
             <span id="page-index">1 / 9</span>
@@ -99,15 +106,14 @@
 
       <section class="download" id="download">
         <div class="download-card reveal">
-          <p class="kicker">Download</p>
-          <h2>下载 Android 安装包</h2>
-          <p>
-            当前目录已提供 APK 文件，可直接下载安装。
-            如遇系统拦截，请在系统设置中允许安装未知来源应用。
+          <p class="kicker" data-i18n="downloadKicker">下载</p>
+          <h2 data-i18n="downloadTitle">下载 Android 安装包</h2>
+          <p data-i18n="downloadDesc">
+            当前目录已提供 APK 文件，可直接下载安装。如遇系统拦截，请在系统设置中允许安装未知来源应用。
           </p>
           <div class="download-actions">
-            <a class="btn btn-primary" href="./app-release.apk" download>下载 APK</a>
-            <button class="btn btn-ghost" id="copy-link" type="button">复制下载链接</button>
+            <a class="btn btn-primary" href="./app-release.apk" download data-i18n="downloadApk">下载 APK</a>
+            <button class="btn btn-ghost" id="copy-link" type="button" data-i18n="copyLink">复制下载链接</button>
           </div>
           <small id="copy-status" aria-live="polite"></small>
         </div>
@@ -115,7 +121,7 @@
     </main>
 
     <footer class="site-footer">
-      <p>Inventarium 珍藏录 · 本地优先的数据管理体验</p>
+      <p data-i18n="footerText">Inventarium 珍藏录 · 本地优先的数据管理体验</p>
     </footer>
 
     <script src="./script.js"></script>
