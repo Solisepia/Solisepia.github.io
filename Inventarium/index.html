@@ -7,7 +7,7 @@
     <meta
       id="meta-description"
       name="description"
-      content="Inventarium 珍藏录：专注本地存储、支持图片与进度追踪的物品管理工具。下载 Android 安装包，开箱即用。"
+      content="Inventarium 珍藏录：专注本地存储、支持图片与进度追踪的物品管理工具。提供 Android APK 与 Windows 安装包下载。"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,7 +25,6 @@
           <button class="lang-btn" type="button" data-lang="zh">中文</button>
           <button class="lang-btn" type="button" data-lang="en">EN</button>
         </div>
-        <a class="header-cta" href="./app-release.apk" download data-i18n="headerCta">立即下载</a>
       </div>
     </header>
 
@@ -41,7 +40,7 @@
             本地离线存储、图片上传、标签筛选、进度趋势、自动备份。不依赖云端账号，数据完全由你掌控。
           </p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#download" data-i18n="heroDownload">前往下载 APK</a>
+            <a class="btn btn-primary" href="#download" data-i18n="heroDownload">前往下载</a>
             <a class="btn btn-ghost" href="#features" data-i18n="heroFeatures">查看功能</a>
           </div>
         </div>
@@ -107,13 +106,14 @@
       <section class="download" id="download">
         <div class="download-card reveal">
           <p class="kicker" data-i18n="downloadKicker">下载</p>
-          <h2 data-i18n="downloadTitle">下载 Android 安装包</h2>
+          <h2 data-i18n="downloadTitle">下载安装包</h2>
           <p data-i18n="downloadDesc">
-            当前目录已提供 APK 文件，可直接下载安装。如遇系统拦截，请在系统设置中允许安装未知来源应用。
+            当前目录已提供 Android APK 与 Windows 安装包，可直接下载使用。
           </p>
           <div class="download-actions">
             <a class="btn btn-primary" href="./app-release.apk" download data-i18n="downloadApk">下载 APK</a>
-            <button class="btn btn-ghost" id="copy-link" type="button" data-i18n="copyLink">复制下载链接</button>
+            <a class="btn btn-primary" href="./Inventarium_0.1.0_x64-setup.exe" download data-i18n="downloadPc">下载 Windows 安装包</a>
+            <button class="btn btn-ghost" id="copy-link" type="button" data-i18n="copyLink">复制 APK 下载链接</button>
           </div>
           <small id="copy-status" aria-live="polite"></small>
         </div>
