@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://solisepia.github.io/sitemap.xml
+Sitemap: https://solisepia.github.io/Inventarium/sitemap.xml
