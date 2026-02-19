@@ -119,16 +119,6 @@
       max-width: 760px;
     }
 
-    .primary-btn {
-      display: inline-block;
-      text-decoration: none;
-      background: linear-gradient(120deg, var(--primary), var(--primary-strong));
-      color: #fff;
-      border-radius: 10px;
-      padding: 11px 16px;
-      font-weight: 600;
-    }
-
     h2 {
       margin: 8px 0 12px;
       font-size: 1.35rem;
@@ -219,8 +209,8 @@
       <div class="top-actions">
         <nav class="nav-links">
           <a class="pill-link" href="#projects" data-i18n="navSamples">样例</a>
+          <a class="pill-link" href="#software" data-i18n="navSoftware">软件</a>
           <a class="pill-link" href="#videos" data-i18n="navVideos">视频</a>
-          <a class="pill-link" href="Inventarium/index.html" data-i18n="navInventarium">Inventarium</a>
         </nav>
         <div class="lang-switch" role="group" aria-label="Language switch">
           <button class="lang-btn" type="button" data-lang="zh">中文</button>
@@ -231,22 +221,21 @@
 
     <section class="hero">
       <h1 data-i18n="heroTitle">个人作品页</h1>
-      <p data-i18n="heroDesc">这个页面汇总了项目样例和演示视频，并提供 Inventarium 的直接入口。</p>
-      <a class="primary-btn" href="Inventarium/index.html" data-i18n="heroBtn">打开 Inventarium</a>
+      <p data-i18n="heroDesc">这个页面汇总了软件列表和演示视频等。</p>
     </section>
 
-    <section id="projects" class="section">
-      <h2 data-i18n="projectsTitle">样例项目</h2>
+    <section id="software" class="section">
+      <h2 data-i18n="softwareTitle">软件列表</h2>
       <div class="grid">
         <article class="card">
-          <h3 data-i18n="unrealTitle">Unreal 渲染图示</h3>
-          <p data-i18n="unrealDesc">来自 draw.io 导出的渲染流程分析和参考内容。</p>
-          <a href="unreal_render.drawio.html" target="_blank" rel="noopener noreferrer" data-i18n="viewSample">查看样例</a>
+          <h3 data-i18n="inventariumTitle">Inventarium 网页</h3>
+          <p data-i18n="inventariumDesc">物品管理工具页面，支持本地存储与多平台安装包下载。</p>
+          <a href="Inventarium/index.html" target="_blank" rel="noopener noreferrer" data-i18n="goInventarium">进入 Inventarium</a>
         </article>
         <article class="card">
-          <h3 data-i18n="inventariumTitle">Inventarium 网页</h3>
-          <p data-i18n="inventariumDesc">从这个作品首页进入 Inventarium 独立页面。</p>
-          <a href="Inventarium/index.html" target="_blank" rel="noopener noreferrer" data-i18n="goInventarium">进入 Inventarium</a>
+          <h3 data-i18n="centrumTitle">Centrum Operum 网页</h3>
+          <p data-i18n="centrumDesc">任务、笔记与 AI 工作台页面，提供 Android 与 Windows 安装包入口。</p>
+          <a href="CentrumOperum/index.html" target="_blank" rel="noopener noreferrer" data-i18n="goCentrum">进入 Centrum Operum</a>
         </article>
       </div>
     </section>
@@ -270,6 +259,16 @@
         </div>
       </div>
     </section>
+
+    <section id="projects" class="section">
+      <div class="grid">
+        <article class="card">
+          <h3 data-i18n="unrealTitle">Unreal 渲染图示</h3>
+          <p data-i18n="unrealDesc">来自 draw.io 导出的渲染流程分析和参考内容。</p>
+          <a href="unreal_render.drawio.html" target="_blank" rel="noopener noreferrer" data-i18n="viewSample">查看样例</a>
+        </article>
+      </div>
+    </section>
   </main>
 
   <script>
@@ -278,18 +277,20 @@
         pageTitle: "Solisepia 作品集",
         brand: "Solisepia 作品集",
         navSamples: "样例",
+        navSoftware: "软件",
         navVideos: "视频",
-        navInventarium: "Inventarium",
         heroTitle: "个人作品页",
-        heroDesc: "这个页面汇总了项目样例和演示视频，并提供 Inventarium 的直接入口。",
-        heroBtn: "打开 Inventarium",
-        projectsTitle: "样例项目",
+        heroDesc: "这个页面汇总了软件列表和演示视频等。",
+        softwareTitle: "软件列表",
+        inventariumTitle: "Inventarium 网页",
+        inventariumDesc: "物品管理工具页面，支持本地存储与多平台安装包下载。",
+        goInventarium: "进入 Inventarium",
+        centrumTitle: "Centrum Operum 网页",
+        centrumDesc: "任务、笔记与 AI 工作台页面，提供 Android 与 Windows 安装包入口。",
+        goCentrum: "进入 Centrum Operum",
         unrealTitle: "Unreal 渲染图示",
         unrealDesc: "来自 draw.io 导出的渲染流程分析和参考内容。",
         viewSample: "查看样例",
-        inventariumTitle: "Inventarium 网页",
-        inventariumDesc: "从这个作品首页进入 Inventarium 独立页面。",
-        goInventarium: "进入 Inventarium",
         videosTitle: "视频",
         videoOne: "FPS demo演示",
         videoTwo: "卡牌对战 demo演示"
@@ -298,18 +299,20 @@
         pageTitle: "Solisepia Portfolio",
         brand: "Solisepia Works",
         navSamples: "Samples",
+        navSoftware: "Software",
         navVideos: "Videos",
-        navInventarium: "Inventarium",
         heroTitle: "Personal Portfolio",
-        heroDesc: "This page gathers project samples and demo videos, with a direct entry to Inventarium.",
-        heroBtn: "Open Inventarium",
-        projectsTitle: "Sample Projects",
+        heroDesc: "This page gathers a software list, demo videos, etc.",
+        softwareTitle: "Software List",
+        inventariumTitle: "Inventarium Page",
+        inventariumDesc: "Inventory management app page with local-first storage and installer downloads.",
+        goInventarium: "Go to Inventarium",
+        centrumTitle: "Centrum Operum Page",
+        centrumDesc: "Task, notes, and AI workspace page with Android and Windows installer entries.",
+        goCentrum: "Go to Centrum Operum",
         unrealTitle: "Unreal Render Diagram",
         unrealDesc: "Rendering flow analysis and references exported from draw.io.",
         viewSample: "View sample",
-        inventariumTitle: "Inventarium Web",
-        inventariumDesc: "Jump to the dedicated Inventarium page from this portfolio hub.",
-        goInventarium: "Go to Inventarium",
         videosTitle: "Videos",
         videoOne: "FPS demo showcase",
         videoTwo: "Card battle demo showcase"
