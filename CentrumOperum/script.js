@@ -128,14 +128,14 @@ const i18n = {
 
 const galleryGroups = {
   mobile: [
-    './gallery/mobile0.png',
-    './gallery/mobile1.png',
-    './gallery/mobile2.png',
-    './gallery/mobile3.png',
-    './gallery/mobile4.png',
-    './gallery/mobile5.png'
+    './gallery/mobile0.jpg',
+    './gallery/mobile1.jpg',
+    './gallery/mobile2.jpg',
+    './gallery/mobile3.jpg',
+    './gallery/mobile4.jpg',
+    './gallery/mobile5.jpg'
   ],
-  pc: ['./gallery/pc0.png', './gallery/pc1.png', './gallery/pc2.png', './gallery/pc3.png']
+  pc: ['./gallery/pc0.jpg', './gallery/pc1.jpg', './gallery/pc2.jpg', './gallery/pc3.jpg']
 };
 
 let currentGroup = 'mobile';
