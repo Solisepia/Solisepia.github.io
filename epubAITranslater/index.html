@@ -1,0 +1,465 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>epubAITranslater | EPUB AI 翻译器</title>
+  <meta name="description" content="epubAITranslater：将 EPUB 翻译为简体中文的本地桌面工具，支持 OpenAI/DeepSeek、术语表、QA 检查与一键安装。">
+  <meta property="og:title" content="epubAITranslater | EPUB AI 翻译器">
+  <meta property="og:description" content="本地运行、可视化界面、可下载 Windows 安装包。支持术语表与 QA 报告。">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="photos/sample0.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --ink: #0d1a2b;
+      --muted: #506176;
+      --line: #cfdae8;
+      --card: #ffffff;
+      --blue: #1368d8;
+      --blue-deep: #0b4ea6;
+      --mint: #0f8b8d;
+      --amber: #f9b32f;
+      --shadow: 0 20px 40px rgba(11, 36, 73, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Noto Sans SC", sans-serif;
+      background:
+        radial-gradient(circle at 85% -10%, #d9e9ff 0%, transparent 42%),
+        radial-gradient(circle at -10% 15%, #d8f3f0 0%, transparent 35%),
+        var(--bg);
+    }
+
+    .wrap {
+      width: min(1120px, 92vw);
+      margin: 0 auto;
+      padding: 28px 0 64px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      background: linear-gradient(140deg, var(--blue), var(--mint));
+      box-shadow: 0 0 0 6px rgba(19, 104, 216, 0.14);
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 11px;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue), var(--blue-deep));
+      box-shadow: 0 12px 25px rgba(14, 82, 171, 0.28);
+    }
+
+    .btn-ghost {
+      color: var(--blue-deep);
+      border-color: #b9d0f1;
+      background: #edf4ff;
+    }
+
+    .hero {
+      background: linear-gradient(140deg, #ffffff 10%, #edf4ff 92%);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -80px;
+      bottom: -80px;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(15, 139, 141, 0.22), rgba(15, 139, 141, 0));
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.9rem, 3vw, 2.8rem);
+      line-height: 1.15;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 60ch;
+    }
+
+    .tagline {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #e6f2ff;
+      color: var(--blue-deep);
+      font-size: 0.86rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      align-content: start;
+    }
+
+    .kpi {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .kpi strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+
+    section { margin-top: 28px; }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 1.45rem;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      letter-spacing: 0.2px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 8px 20px rgba(22, 52, 92, 0.06);
+    }
+
+    .card h3 {
+      margin: 0 0 6px;
+      font-size: 1.05rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.95rem;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+    }
+
+    .step {
+      border-radius: 14px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      background: #fff;
+      position: relative;
+    }
+
+    .step b {
+      display: inline-block;
+      margin-bottom: 6px;
+      color: var(--blue-deep);
+      font-family: "Space Grotesk", sans-serif;
+    }
+
+    .shots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+    }
+
+    .shot {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    .shot img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      display: block;
+      border: 1px solid #dbe6f3;
+    }
+
+    .shot p {
+      margin: 8px 4px 2px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .download {
+      background: linear-gradient(155deg, #0d2f59, #133d72);
+      color: #eff5ff;
+      border-radius: 18px;
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .download::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      right: -40px;
+      top: -40px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(249, 179, 47, 0.35), rgba(249, 179, 47, 0));
+    }
+
+    .download p {
+      margin: 0 0 14px;
+      color: #cfe1fb;
+      max-width: 64ch;
+      line-height: 1.65;
+    }
+
+    .download .btn-ghost {
+      background: rgba(232, 240, 255, 0.12);
+      color: #edf4ff;
+      border-color: rgba(232, 240, 255, 0.4);
+    }
+
+    .meta {
+      margin-top: 12px;
+      color: #b8cae6;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    details {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-top: 8px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    details p {
+      color: var(--muted);
+      margin: 8px 0 2px;
+      line-height: 1.6;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    .d1 { animation-delay: 0.08s; }
+    .d2 { animation-delay: 0.16s; }
+    .d3 { animation-delay: 0.24s; }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .wrap { padding-top: 18px; }
+      .topbar { flex-direction: column; align-items: flex-start; }
+      .actions { justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="topbar reveal">
+      <a class="brand" href="../index.html">
+        <span class="dot" aria-hidden="true"></span>
+        <span>epubAITranslater</span>
+      </a>
+      <div class="actions">
+        <a class="btn btn-ghost" href="https://github.com/Solisepia/epubAITranslater" target="_blank" rel="noopener noreferrer">GitHub 仓库</a>
+        <a class="btn btn-primary" href="https://github.com/Solisepia/epubAITranslater/releases/latest" target="_blank" rel="noopener noreferrer">下载最新版</a>
+      </div>
+    </header>
+
+    <section class="hero reveal d1">
+      <div>
+        <span class="tagline">EPUB -> 简体中文 | Faithful Translation</span>
+        <h1>本地 EPUB AI 翻译工具</h1>
+        <p>
+          面向小说、文档、长篇内容的 EPUB 翻译工作流：支持 OpenAI / DeepSeek、术语表约束、断点续跑、QA 报告与 Windows 一键安装。
+          默认目标语言为简体中文，强调忠实直译与结构完整性。
+        </p>
+      </div>
+      <div class="kpis">
+        <div class="kpi"><strong>Windows</strong><span>安装包即装即用</span></div>
+        <div class="kpi"><strong>GUI + CLI</strong><span>兼顾新手与自动化</span></div>
+        <div class="kpi"><strong>术语表</strong><span>支持自动生成与强制译法</span></div>
+        <div class="kpi"><strong>QA 产物</strong><span>生成 JSON/Markdown 检查报告</span></div>
+      </div>
+    </section>
+
+    <section class="reveal d2">
+      <h2>核心功能</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>双阶段翻译</h3>
+          <p>支持 draft + revise 流程，可分别指定 provider/model，平衡速度、质量与成本。</p>
+        </article>
+        <article class="card">
+          <h3>可视化配置</h3>
+          <p>在 GUI 内直接编辑配置（style、分段、重试、QA 阈值），无需手写 YAML。</p>
+        </article>
+        <article class="card">
+          <h3>术语一致性</h3>
+          <p>支持术语表命中优先与 force 约束，减少专有名词漂移。</p>
+        </article>
+        <article class="card">
+          <h3>断点续跑</h3>
+          <p>缓存命中自动跳过已翻译段，适合长书翻译中断后恢复。</p>
+        </article>
+        <article class="card">
+          <h3>QA Gate</h3>
+          <p>自动检查空译文、占位符一致性、链接与 TOC 完整性，输出 qa_report 与 qa_summary。</p>
+        </article>
+        <article class="card">
+          <h3>术语自动生成</h3>
+          <p>可从 EPUB 抽取候选术语，并使用 AI 批量补全空 target。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="reveal d2">
+      <h2>3 分钟上手</h2>
+      <div class="steps">
+        <div class="step"><b>Step 1</b><div>下载安装包并完成安装。</div></div>
+        <div class="step"><b>Step 2</b><div>启动后填写 OpenAI 或 DeepSeek API Key。</div></div>
+        <div class="step"><b>Step 3</b><div>选择输入 EPUB、输出路径，按需选择 provider/model。</div></div>
+        <div class="step"><b>Step 4</b><div>点击 <code>Start Translation</code>，完成后查看输出 EPUB 与 QA 报告。</div></div>
+      </div>
+    </section>
+
+    <section class="reveal d3">
+      <h2>软件截图</h2>
+      <div class="shots">
+        <figure class="shot">
+          <img src="photos/sample0.png" alt="epubAITranslater 主界面截图">
+          <p>主界面：输入输出、Provider、Key 与执行控制。</p>
+        </figure>
+        <figure class="shot">
+          <img src="photos/sample1.png" alt="epubAITranslater 日志与配置截图">
+          <p>配置与日志：支持 Edit Config、实时进度与 QA 产物定位。</p>
+        </figure>
+      </div>
+    </section>
+
+    <section class="download reveal d3">
+      <h2>下载与源码</h2>
+      <p>
+        推荐直接下载 GitHub Release 安装包（已包含运行环境）。
+        若你需要参与开发或自定义构建，可访问源码仓库。
+      </p>
+      <div class="actions">
+        <a class="btn btn-primary" href="https://github.com/Solisepia/epubAITranslater/releases/download/v0.1.0/epub2zh-faithful-client-setup.exe" target="_blank" rel="noopener noreferrer">下载 Windows 安装包</a>
+        <a class="btn btn-ghost" href="https://github.com/Solisepia/epubAITranslater/releases/latest" target="_blank" rel="noopener noreferrer">查看全部 Release</a>
+        <a class="btn btn-ghost" href="https://github.com/Solisepia/epubAITranslater" target="_blank" rel="noopener noreferrer">查看源码</a>
+      </div>
+      <div class="meta">
+        当前安装包：<code>epub2zh-faithful-client-setup.exe</code><br>
+        最近构建日期：2026-02-21
+      </div>
+    </section>
+
+    <section class="reveal d3">
+      <h2>常见问题</h2>
+      <details>
+        <summary>QA error 是什么？</summary>
+        <p>表示翻译流程完成，但质量检查出现错误项（例如占位符不一致、译文留原文、结构问题）。可根据 artifacts 目录中的 <code>qa_summary.md</code> 与 <code>qa_report.json</code> 定位问题。</p>
+      </details>
+      <details>
+        <summary>会自动保存 API Key 吗？</summary>
+        <p>不会。界面中填入的 Key 仅作用于当前进程，不会自动写入持久配置文件。</p>
+      </details>
+      <details>
+        <summary>是否只能翻译成中文？</summary>
+        <p>当前版本目标语言固定为简体中文（zh-Hans），并围绕中文输出质量做了针对性约束。</p>
+      </details>
+    </section>
+  </main>
+</body>
+</html>
