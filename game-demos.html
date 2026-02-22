@@ -1,0 +1,327 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index,follow">
+  <title>游戏 Demo | Solisepia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f3f7fc;
+      --surface: #ffffff;
+      --line: #d2deef;
+      --text: #102038;
+      --muted: #50617a;
+      --blue: #0c61d8;
+      --blue-strong: #093f9a;
+      --teal: #0f8b91;
+      --shadow: 0 20px 40px rgba(18, 43, 86, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans SC", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 90% -2%, #dbe9ff 0%, transparent 36%),
+        radial-gradient(circle at 12% 10%, #dff4ef 0%, transparent 31%),
+        var(--bg);
+    }
+
+    .page {
+      width: min(1080px, 92vw);
+      margin: 0 auto;
+      padding: 24px 0 56px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(6px);
+      padding: 10px 14px;
+      box-shadow: 0 10px 24px rgba(19, 42, 80, 0.08);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--blue), var(--teal));
+      box-shadow: 0 0 0 7px rgba(12, 97, 216, 0.14);
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .lang-btn {
+      border: 0;
+      background: transparent;
+      padding: 7px 11px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    .lang-btn.is-active {
+      background: #e9f1ff;
+      color: var(--blue-strong);
+      font-weight: 700;
+    }
+
+    .btn {
+      text-decoration: none;
+      border-radius: 11px;
+      padding: 8px 12px;
+      font-weight: 700;
+      border: 1px solid #b8cff0;
+      background: #edf4ff;
+      color: var(--blue-strong);
+      transition: transform 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .hero {
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: linear-gradient(145deg, #ffffff 12%, #ecf4ff 95%);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-bottom: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--blue-strong);
+      background: #e8f1ff;
+      border: 1px solid #c9dcfb;
+      border-radius: 999px;
+      padding: 6px 10px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.75rem, 2.8vw, 2.45rem);
+      line-height: 1.18;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 66ch;
+    }
+
+    .videos {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 14px;
+    }
+
+    .video-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      padding: 12px;
+    }
+
+    .video-card video {
+      width: 100%;
+      display: block;
+      border-radius: 10px;
+      border: 1px solid #d6e2f4;
+      background: #000;
+    }
+
+    .video-title {
+      margin: 10px 4px 2px;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .video-desc {
+      margin: 0 4px 2px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.93rem;
+    }
+
+    .foot {
+      margin-top: 18px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    [data-reveal="2"] { animation-delay: 0.12s; }
+    [data-reveal="3"] { animation-delay: 0.2s; }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 700px) {
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .actions { justify-content: flex-start; }
+      .hero { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="topbar" data-reveal="1">
+      <div class="brand">
+        <span class="dot" aria-hidden="true"></span>
+        <span data-i18n="brand">Solisepia 游戏 Demo</span>
+      </div>
+      <div class="actions">
+        <a class="btn" href="index.html" data-i18n="backHome">返回主页</a>
+        <div class="lang-switch" role="group" aria-label="Language switch">
+          <button class="lang-btn" type="button" data-lang="zh">中文</button>
+          <button class="lang-btn" type="button" data-lang="en">EN</button>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero" data-reveal="2">
+      <span class="tag" data-i18n="heroTag">Prototype Showcase</span>
+      <h1 data-i18n="heroTitle">游戏 Demo 展示页面</h1>
+      <p data-i18n="heroDesc">这里集中展示两个游戏原型视频：FPS Demo 与卡牌对战 Demo。建议在桌面端全屏播放查看细节。</p>
+    </section>
+
+    <section class="videos" data-reveal="3">
+      <article class="video-card">
+        <video controls preload="metadata">
+          <source src="1%E6%9C%888%E6%97%A5.mp4" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+        <p class="video-title" data-i18n="video1Title">FPS Demo</p>
+        <p class="video-desc" data-i18n="video1Desc">第一人称玩法原型，展示场景移动与基础交互。</p>
+      </article>
+
+      <article class="video-card">
+        <video controls preload="metadata">
+          <source src="duyesishow.mp4" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+        <p class="video-title" data-i18n="video2Title">卡牌对战 Demo</p>
+        <p class="video-desc" data-i18n="video2Desc">回合制卡牌战斗原型，展示战斗流程与演出效果。</p>
+      </article>
+    </section>
+
+    <footer class="foot" data-i18n="footerText">© 2026 Solisepia · Game Demos</footer>
+  </main>
+
+  <script>
+    const i18n = {
+      zh: {
+        pageTitle: "游戏 Demo | Solisepia",
+        brand: "Solisepia 游戏 Demo",
+        backHome: "返回主页",
+        heroTag: "Prototype Showcase",
+        heroTitle: "游戏 Demo 展示页面",
+        heroDesc: "这里集中展示两个游戏原型视频：FPS Demo 与卡牌对战 Demo。建议在桌面端全屏播放查看细节。",
+        video1Title: "FPS Demo",
+        video1Desc: "第一人称玩法原型，展示场景移动与基础交互。",
+        video2Title: "卡牌对战 Demo",
+        video2Desc: "回合制卡牌战斗原型，展示战斗流程与演出效果。",
+        footerText: "© 2026 Solisepia · 游戏 Demo"
+      },
+      en: {
+        pageTitle: "Game Demos | Solisepia",
+        brand: "Solisepia Game Demos",
+        backHome: "Back to Home",
+        heroTag: "Prototype Showcase",
+        heroTitle: "Game Demo Showcase",
+        heroDesc: "This page presents two game prototype videos: an FPS demo and a card battle demo. For better details, fullscreen playback on desktop is recommended.",
+        video1Title: "FPS Demo",
+        video1Desc: "A first-person gameplay prototype showing movement and core interactions.",
+        video2Title: "Card Battle Demo",
+        video2Desc: "A turn-based card combat prototype showing battle flow and visual presentation.",
+        footerText: "© 2026 Solisepia · Game Demos"
+      }
+    };
+
+    const storageKey = "site_lang";
+    const textNodes = document.querySelectorAll("[data-i18n]");
+    const langButtons = document.querySelectorAll(".lang-btn");
+
+    function applyLanguage(lang) {
+      const dict = i18n[lang] || i18n.zh;
+      document.documentElement.lang = lang === "en" ? "en" : "zh-CN";
+      document.title = dict.pageTitle;
+
+      textNodes.forEach((node) => {
+        const key = node.dataset.i18n;
+        if (dict[key]) {
+          node.textContent = dict[key];
+        }
+      });
+
+      langButtons.forEach((button) => {
+        button.classList.toggle("is-active", button.dataset.lang === lang);
+      });
+
+      localStorage.setItem(storageKey, lang);
+    }
+
+    langButtons.forEach((button) => {
+      button.addEventListener("click", () => applyLanguage(button.dataset.lang));
+    });
+
+    const savedLang = localStorage.getItem(storageKey);
+    applyLanguage(savedLang && i18n[savedLang] ? savedLang : "zh");
+  </script>
+</body>
+</html>
