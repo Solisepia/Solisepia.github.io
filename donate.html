@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>打赏开发者 | Support the Developer</title>
+  <meta name="description" content="使用微信扫码打赏开发者。Scan with WeChat QR code to support the developer.">
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --line: #d6dfeb;
+      --text: #122033;
+      --muted: #5a6a80;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", "Noto Sans SC", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 82% 5%, #dbe9ff 0%, transparent 42%),
+        radial-gradient(circle at 10% 20%, #e2f6ef 0%, transparent 30%),
+        var(--bg);
+      display: grid;
+      place-items: center;
+      padding: 20px;
+    }
+
+    .card {
+      width: min(560px, 100%);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 22px;
+      text-align: center;
+      box-shadow: 0 16px 38px rgba(20, 45, 88, 0.12);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.25rem, 2.6vw, 1.8rem);
+    }
+
+    p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    img {
+      width: min(360px, 100%);
+      height: auto;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      display: block;
+      margin: 0 auto 14px;
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>请使用微信扫描下方二维码打赏开发者</h1>
+    <p>Scan the QR code below with WeChat to support the developer.</p>
+    <img src="./dashangma.png" alt="微信打赏二维码 WeChat donation QR code">
+  </main>
+</body>
+</html>

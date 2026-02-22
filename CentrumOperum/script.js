@@ -46,6 +46,7 @@ const i18n = {
     downloadPc: '下载 Windows 安装包',
     downloadPcUnavailable: 'Windows 安装包暂未提供',
     copyLink: '复制 APK 下载链接',
+    donateBtn: '喜欢这个软件？点此给开发者打赏',
 
     faqTitle: '常见问题',
     faq1Q: '数据会上传云端吗？',
@@ -107,6 +108,7 @@ const i18n = {
     downloadPc: 'Download Windows Installer',
     downloadPcUnavailable: 'Windows installer not available yet',
     copyLink: 'Copy APK Link',
+    donateBtn: 'Love this app? Tip the developer',
 
     faqTitle: 'FAQ',
     faq1Q: 'Will my data be uploaded to cloud?',
