@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pdf2epub | PDF 转 EPUB 工具</title>
+  <meta name="description" content="pdf2epub：本地 PDF 转 EPUB 工具，支持目录跳转、图片与公式识别、表格截图保真、段落结构恢复与安装器一键部署。">
+  <meta property="og:title" content="pdf2epub | PDF 转 EPUB 工具">
+  <meta property="og:description" content="用于论文与技术文档转换的本地工具：支持目录锚点、段落修复、公式识别与可选安装路径。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://solisepia.github.io/pdf2epub/">
+  <meta name="twitter:card" content="summary">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f3f6fb;
+      --ink: #0f1d31;
+      --muted: #4b6078;
+      --line: #cfd9e8;
+      --card: #ffffff;
+      --blue: #0f5ed0;
+      --blue-deep: #0a3f90;
+      --teal: #0d8f8d;
+      --glow: 0 18px 42px rgba(12, 44, 89, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Noto Sans SC", sans-serif;
+      background:
+        radial-gradient(circle at 85% 0%, #dbe9ff 0%, transparent 40%),
+        radial-gradient(circle at 10% 18%, #d9f5f1 0%, transparent 30%),
+        var(--bg);
+    }
+
+    .wrap {
+      width: min(1120px, 92vw);
+      margin: 0 auto;
+      padding: 28px 0 60px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--ink);
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+      font-weight: 700;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(140deg, var(--blue), var(--teal));
+      box-shadow: 0 0 0 6px rgba(15, 94, 208, 0.14);
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      text-decoration: none;
+      border-radius: 11px;
+      padding: 10px 14px;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: transform 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue), var(--blue-deep));
+      box-shadow: 0 10px 24px rgba(12, 67, 145, 0.3);
+    }
+
+    .btn-ghost {
+      color: var(--blue-deep);
+      border-color: #b9cce8;
+      background: #ebf3ff;
+    }
+
+    .hero {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(145deg, #ffffff 10%, #ebf4ff 92%);
+      box-shadow: var(--glow);
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 22px;
+      margin-bottom: 26px;
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: clamp(1.95rem, 3vw, 2.7rem);
+      line-height: 1.15;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 64ch;
+    }
+
+    .tagline {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #e6f0ff;
+      color: var(--blue-deep);
+      font-weight: 700;
+      font-size: 0.86rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      align-content: start;
+    }
+
+    .stat {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .stat strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 1.1rem;
+      font-family: "Space Grotesk", sans-serif;
+    }
+
+    section { margin-top: 26px; }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 1.42rem;
+      font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 8px 20px rgba(19, 52, 96, 0.06);
+    }
+
+    .card h3 {
+      margin: 0 0 6px;
+      font-size: 1.04rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.95rem;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+    }
+
+    .step {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .step b {
+      display: inline-block;
+      margin-bottom: 6px;
+      color: var(--blue-deep);
+      font-family: "Space Grotesk", sans-serif;
+    }
+
+    .download {
+      border-radius: 18px;
+      background: linear-gradient(155deg, #0f2f58, #1a4477);
+      color: #eaf2ff;
+      padding: 22px;
+    }
+
+    .download p {
+      margin: 0 0 14px;
+      color: #c9dbf5;
+      line-height: 1.65;
+      max-width: 62ch;
+    }
+
+    .download .btn-ghost {
+      background: rgba(229, 239, 255, 0.1);
+      color: #ecf4ff;
+      border-color: rgba(229, 239, 255, 0.38);
+    }
+
+    .meta {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      color: #afc4e5;
+      line-height: 1.55;
+    }
+
+    details {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-top: 8px;
+    }
+
+    summary { cursor: pointer; font-weight: 700; }
+
+    details p {
+      margin: 8px 0 2px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="topbar">
+      <a class="brand" href="../index.html">
+        <span class="dot" aria-hidden="true"></span>
+        <span>pdf2epub</span>
+      </a>
+      <div class="actions">
+        <a class="btn btn-ghost" href="../epubAITranslater/index.html">查看 epubAITranslater</a>
+        <a class="btn btn-primary" href="https://github.com/Solisepia/pdf2epub/releases/download/v0.1.0/pdf2epub-installer.exe" target="_blank" rel="noopener noreferrer">下载 Windows 安装器</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <span class="tagline">PDF -> EPUB | 论文与文档友好</span>
+        <h1>本地 PDF 转 EPUB 工具</h1>
+        <p>
+          面向论文、技术文档和长文阅读场景。支持目录跳转锚点、图片顺序恢复、段落软换行修复、公式识别与 LaTeX 输出，
+          并将表格按截图方式保真插入 EPUB，避免复杂表格错位。
+        </p>
+      </div>
+      <div class="stats">
+        <div class="stat"><strong>GUI + CLI</strong><span>适合日常使用与批处理脚本</span></div>
+        <div class="stat"><strong>目录跳转</strong><span>按 PDF 目录映射 EPUB 导航</span></div>
+        <div class="stat"><strong>表格保真</strong><span>检测到表格后自动截图插入</span></div>
+        <div class="stat"><strong>安装器</strong><span>支持自定义安装路径</span></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>核心能力</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>段落与换行修复</h3>
+          <p>区分软换行与真实换段，减少句子被错误断行或错误合并。</p>
+        </article>
+        <article class="card">
+          <h3>图片位置还原</h3>
+          <p>尽量按页面阅读顺序插入图像，避免图像集中跑到开头。</p>
+        </article>
+        <article class="card">
+          <h3>公式识别</h3>
+          <p>支持公式图像 OCR 到 LaTeX，并对文本公式输出 LaTeX 辅助行。</p>
+        </article>
+        <article class="card">
+          <h3>目录与锚点</h3>
+          <p>目录标题与正文标题对应，点击目录可准确跳转到对应章节。</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>快速使用</h2>
+      <div class="steps">
+        <div class="step"><b>Step 1</b><div>下载安装器并选择安装路径。</div></div>
+        <div class="step"><b>Step 2</b><div>启动 GUI，选择输入 PDF 与输出 EPUB。</div></div>
+        <div class="step"><b>Step 3</b><div>点击 Convert，查看进度条与日志。</div></div>
+        <div class="step"><b>Step 4</b><div>转换完成后在阅读器中验证目录、公式与表格。</div></div>
+      </div>
+    </section>
+
+    <section class="download">
+      <h2>下载</h2>
+      <p>
+        推荐使用安装器版本，已包含运行环境并支持自定义安装路径。若用于离线分发，可直接保存安装器文件。
+      </p>
+      <div class="actions">
+        <a class="btn btn-primary" href="https://github.com/Solisepia/pdf2epub/releases/download/v0.1.0/pdf2epub-installer.exe" target="_blank" rel="noopener noreferrer">下载 pdf2epub-installer.exe</a>
+      </div>
+      <div class="meta">
+        下载来源：GitHub Release（<code>v0.1.0</code>）<br>
+        最近更新：2026-02-22
+      </div>
+    </section>
+
+    <section>
+      <h2>常见问题</h2>
+      <details>
+        <summary>为什么表格不是可编辑文本？</summary>
+        <p>当前策略对所有检测到的表格都采用截图插入，以优先保证视觉结构和阅读正确性。</p>
+      </details>
+      <details>
+        <summary>公式能否完全 100% 还原？</summary>
+        <p>复杂 PDF 的公式来源差异较大。当前提供公式识别与 LaTeX 辅助输出，但极端版式仍可能需要人工校对。</p>
+      </details>
+    </section>
+  </main>
+</body>
+</html>
