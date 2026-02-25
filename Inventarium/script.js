@@ -1,4 +1,4 @@
-﻿const storageKey = 'site_lang';
+const storageKey = 'site_lang';
 let currentLanguage = 'zh';
 
 const i18n = {
@@ -124,7 +124,7 @@ const metaDescription = document.getElementById('meta-description');
 const copyButton = document.getElementById('copy-link');
 const copyStatus = document.getElementById('copy-status');
 
-const galleryImages = Array.from({ length: 9 }, (_, index) => `./gallery/sample${index}.jpg`);
+const galleryImages = Array.from({ length: 9 }, (_, index) => `./gallery/sample${index}.webp`);
 const pageFrame = document.getElementById('page-frame');
 const pageImage = document.getElementById('page-image');
 const pagePrev = document.getElementById('page-prev');
