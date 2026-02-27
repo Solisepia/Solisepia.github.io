@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>epubAITranslater | EPUB AI 翻译器</title>
-  <meta name="description" content="epubAITranslater：将 EPUB 翻译为简体中文的本地桌面工具，支持 OpenAI/DeepSeek、术语表、QA 检查与一键安装。">
+  <title>epubAITranslater | EPUB AI 翻译器 v0.1.2</title>
+  <meta name="description" content="epubAITranslater：将 EPUB 翻译为简体中文的本地桌面工具。支持 OpenAI/DeepSeek/阿里云百炼（DashScope）、术语表、断点续跑、QA 报告与 Windows 安装包。">
   <meta property="og:title" content="epubAITranslater | EPUB AI 翻译器">
-  <meta property="og:description" content="本地运行、可视化界面、可下载 Windows 安装包。支持术语表与 QA 报告。">
+  <meta property="og:description" content="v0.1.2：停止/取消流程修复。支持 OpenAI/DeepSeek/阿里云百炼（DashScope）、术语表、QA 报告与 Windows 一键安装。">
   <meta property="og:type" content="website">
   <meta property="og:image" content="photos/sample0.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -360,18 +360,19 @@
 
     <section class="hero reveal d1">
       <div>
-        <span class="tagline">EPUB -> 简体中文 | Faithful Translation</span>
-        <h1>本地 EPUB AI 翻译工具</h1>
+        <span class="tagline">EPUB -> 简体中文 | v0.1.2</span>
+        <h1>本地 EPUB AI 忠实翻译器</h1>
         <p>
-          面向小说、文档、长篇内容的 EPUB 翻译工作流：支持 OpenAI / DeepSeek、术语表约束、断点续跑、QA 报告与 Windows 一键安装。
-          默认目标语言为简体中文，强调忠实直译与结构完整性。
+          面向小说、文档、长篇内容的 EPUB 翻译工作流：支持 OpenAI / DeepSeek / 阿里云百炼（DashScope） / DashScope-MT，
+          具备术语表约束、断点续跑、QA 报告、GUI+CLI 双入口，并在 v0.1.2 修复了停止/取消流程的稳定性问题。
+          当前目标语言固定为简体中文（zh-Hans）。
         </p>
       </div>
       <div class="kpis">
-        <div class="kpi"><strong>Windows</strong><span>安装包即装即用</span></div>
-        <div class="kpi"><strong>GUI + CLI</strong><span>兼顾新手与自动化</span></div>
-        <div class="kpi"><strong>术语表</strong><span>支持自动生成与强制译法</span></div>
-        <div class="kpi"><strong>QA 产物</strong><span>生成 JSON/Markdown 检查报告</span></div>
+        <div class="kpi"><strong>v0.1.2</strong><span>停止/取消流程修复</span></div>
+        <div class="kpi"><strong>6 Providers</strong><span>openai/deepseek/dashscope(阿里云百炼)/dashscope-mt/mixed/mock</span></div>
+        <div class="kpi"><strong>Resume</strong><span>SQLite 缓存支持断点续翻</span></div>
+        <div class="kpi"><strong>QA Artifacts</strong><span>自动输出 qa_report.json 与 qa_summary.md</span></div>
       </div>
     </section>
 
@@ -379,28 +380,28 @@
       <h2>核心功能</h2>
       <div class="grid">
         <article class="card">
-          <h3>双阶段翻译</h3>
-          <p>支持 draft + revise 流程，可分别指定 provider/model，平衡速度、质量与成本。</p>
+          <h3>忠实直译 + 结构保护</h3>
+          <p>保留占位符、链接、目录结构与关键属性，减少翻译导致的 EPUB 结构损坏风险。</p>
         </article>
         <article class="card">
-          <h3>可视化配置</h3>
-          <p>在 GUI 内直接编辑配置（style、分段、重试、QA 阈值），无需手写 YAML。</p>
+          <h3>Provider/Model 灵活切换</h3>
+          <p>支持 openai、deepseek、dashscope（阿里云百炼）、dashscope-mt、mixed、mock，可按阶段选择模型。</p>
         </article>
         <article class="card">
-          <h3>术语一致性</h3>
-          <p>支持术语表命中优先与 force 约束，减少专有名词漂移。</p>
+          <h3>术语表与强制译法</h3>
+          <p>支持 termbase 命中优先与 force 约束，并可从 EPUB 自动生成候选术语。</p>
         </article>
         <article class="card">
           <h3>断点续跑</h3>
-          <p>缓存命中自动跳过已翻译段，适合长书翻译中断后恢复。</p>
+          <p>基于 SQLite 缓存自动跳过已翻译段，长书翻译中断后可继续。</p>
         </article>
         <article class="card">
           <h3>QA Gate</h3>
-          <p>自动检查空译文、占位符一致性、链接与 TOC 完整性，输出 qa_report 与 qa_summary。</p>
+          <p>自动检查空译文、占位符一致性、链接与 TOC 完整性，输出 JSON/Markdown 报告。</p>
         </article>
         <article class="card">
-          <h3>术语自动生成</h3>
-          <p>可从 EPUB 抽取候选术语，并使用 AI 批量补全空 target。</p>
+          <h3>停止与取消更可靠</h3>
+          <p>v0.1.2 修复“stopping 卡住”问题，停止后状态恢复更可预期。</p>
         </article>
       </div>
     </section>
@@ -409,9 +410,9 @@
       <h2>3 分钟上手</h2>
       <div class="steps">
         <div class="step"><b>Step 1</b><div>下载安装包并完成安装。</div></div>
-        <div class="step"><b>Step 2</b><div>启动后填写 OpenAI 或 DeepSeek API Key。</div></div>
-        <div class="step"><b>Step 3</b><div>选择输入 EPUB、输出路径，按需选择 provider/model。</div></div>
-        <div class="step"><b>Step 4</b><div>点击 <code>Start Translation</code>，完成后查看输出 EPUB 与 QA 报告。</div></div>
+        <div class="step"><b>Step 2</b><div>在 GUI 中填写对应服务商 API Key（OpenAI/DeepSeek/阿里云百炼 DashScope）。</div></div>
+        <div class="step"><b>Step 3</b><div>设置 Input/Output、Provider、Model、是否 Resume。</div></div>
+        <div class="step"><b>Step 4</b><div>点击 <code>Start Translation</code>，在输出目录查看 EPUB 与 QA 产物。</div></div>
       </div>
     </section>
 
@@ -433,17 +434,18 @@
       <h2>下载与源码</h2>
       <p>
         推荐直接下载 GitHub Release 安装包（已包含运行环境）。
-        若你需要参与开发或自定义构建，可访问源码仓库。
+        如需自动化或二次开发，可使用 CLI 与源码构建脚本。
       </p>
       <div class="actions">
-        <a class="btn btn-primary" href="https://github.com/Solisepia/epubAITranslater/releases/download/v0.1.0/epub2zh-faithful-client-setup.exe" target="_blank" rel="noopener noreferrer">下载 Windows 安装包</a>
+        <a class="btn btn-primary" href="https://github.com/Solisepia/epubAITranslater/releases/download/v0.1.2/epub2zh-faithful-client-setup-0.1.2.exe" target="_blank" rel="noopener noreferrer">下载 v0.1.2 安装包</a>
         <a class="btn btn-ghost" href="../donate.html" target="_blank" rel="noopener noreferrer">喜欢这个软件？点此给开发者打赏</a>
         <a class="btn btn-ghost" href="https://github.com/Solisepia/epubAITranslater/releases/latest" target="_blank" rel="noopener noreferrer">查看全部 Release</a>
         <a class="btn btn-ghost" href="https://github.com/Solisepia/epubAITranslater" target="_blank" rel="noopener noreferrer">查看源码</a>
       </div>
       <div class="meta">
-        当前安装包：<code>epub2zh-faithful-client-setup.exe</code><br>
-        最近构建日期：2026-02-21
+        当前安装包：<code>epub2zh-faithful-client-setup-0.1.2.exe</code><br>
+        当前版本：<code>v0.1.2</code>（2026-02-27）<br>
+        Release：<a href="https://github.com/Solisepia/epubAITranslater/releases/tag/v0.1.2" target="_blank" rel="noopener noreferrer" style="color:#d5e6ff;">查看 v0.1.2 更新说明</a>
       </div>
     </section>
 
@@ -460,6 +462,14 @@
       <details>
         <summary>是否只能翻译成中文？</summary>
         <p>当前版本目标语言固定为简体中文（zh-Hans），并围绕中文输出质量做了针对性约束。</p>
+      </details>
+      <details>
+        <summary>点击 Stop 后会发生什么？</summary>
+        <p>系统会发出取消信号，停止后续批次提交，并在当前请求结束后恢复 UI 可用状态。v0.1.2 已修复 stopping 卡住问题。</p>
+      </details>
+      <details>
+        <summary>翻译完成后会生成哪些文件？</summary>
+        <p>除输出 EPUB 外，还会生成 <code>qa_report.json</code> 与 <code>qa_summary.md</code>，用于问题定位和质量回顾。</p>
       </details>
     </section>
   </main>
